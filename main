@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- original here: https://www.khanacademy.org/computer-programming/tutorial-2/6642109292691456 
+
+some things still don't work... working on that!
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Quin Hardbrook's code coloring function, modified</title>
+        <style>
+        </style>
+    </head>
+    <body>
+    <code>
+    <pre>
+var cheese = "woah!";
+//wow, pre tags are OP but they mess up your indentin'
+    </pre>
+    </code>
+    <script>
+        var codes = document.getElementsByTagName("code");
+        
+        var re = 
+        [
+        /((\"|')(.*)\2)/gi, "<span style = \"color: rgb(0, 130, 4);\">$1</span>", //quotation marks that RUIN EVERYTHING ELSE
+        ///(\\.)/gi, "<span style = \"color: rgb(0, 155, 194);\">$1</span>", // "\"ed text coloring (commented because it's either one or the other)
+        ];
+        
+        for(var i = 0 ; i < codes.length; i++) {
+            
+            for(var j = 0; j < re.length; j = j + 2){
+                codes[i].innerHTML = codes[i].innerHTML.replace(re[i], re[i+1]);
+            }
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(&lt;[^\s&]+)/gi, "<span style = \"color : darkblue;\">$1</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(&gt;)/gi, "<span style = \"color : darkblue;\">$1</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(\/\/[^\n]+)/gi, "<span style = \"color : #309020;\" class = \"comment\">$1</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(?<!=)(-|=|%)(?!=)/, "<span style = \"color: rgb(179, 179, 179);\">=</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(var|function)\s([^\s=\(\)]+)/gi, "<span style = \"color : blue;\">$1</span> <span style = \"color : darkblue;\">$2</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(for|while)/gi, "<span style = \"color : blue;\">$1</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(document|window)/gi, "<span style = \"color : #00B0A0;\">$1</span>");
+            
+            codes[i].innerHTML = codes[i].innerHTML.replace(/(getElementsByTagName|getElementsByClassName|getElementById|querySelector|querySelectorAll|scroll|===)/gi, "<span style = \"color : #303030;\">$1</span>");
+        }
+        
+        var comments = document.getElementsByClassName("comment");
+        
+        for(var i = 0 ; i < comments.length; i++) {
+            comments[i].innerHTML = comments[i].innerHTML.replace(/<span style=\"color : [^;]+;\">/gi, "")
+            comments[i].innerHTML = comments[i].innerHTML.replace(/<\\span>/gi, "")
+        }
+        </script>
+
+    </body>
+</html>
